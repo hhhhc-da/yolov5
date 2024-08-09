@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 1
+names: ['myCar']
+
+roboflow:
+  workspace: nanoka
+  project: proj1-esgnc
+  version: 3
+  license: MIT
+  url: https://universe.roboflow.com/nanoka/proj1-esgnc/dataset/3
