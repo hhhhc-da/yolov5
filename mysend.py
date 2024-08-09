@@ -15,14 +15,15 @@ response = requests.post(
 )
 
 
+print(response)
 json_data = response.json()
 print(json_data)
 
-point = [int(float(istr)) for istr in json_data['data'][1:-1].split(',')]
-print(point)
+if (json_data['code'] == 0):
+    point = [int(float(istr)) for istr in json_data['data'][1:-1].split(',')]
 
-cv2.circle(frame, point, radius=5,
-           color=(0, 0, 255), thickness=10)
+    cv2.circle(frame, point, radius=5,
+               color=(0, 0, 255), thickness=10)
 
 cap.release()
 

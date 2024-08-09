@@ -134,10 +134,17 @@ def analyze():
     npimg = np.frombuffer(file.read(), np.uint8)
     img = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
 
-    xyxy = inference(img)['xyxy']
-    data = [(xyxy[0] + xyxy[2])/2, (xyxy[1] + xyxy[3])/2]
+    ret = inference(img)
+    xyxy = ret['xyxy']
+    conf = ret['conf']
 
-    return jsonify({'code': 0, 'info': 'Success', 'data': str(data)}), 200
+    data = [0, 0]
+
+    if conf > 0.3:
+        data = [(xyxy[0] + xyxy[2])/2, (xyxy[1] + xyxy[3])/2]
+        return jsonify({'code': 0, 'info': 'Success', 'data': str(data)}), 200
+    else:
+        return jsonify({'code': 2, 'info': 'No myCar'}), 200
 
 
 # ----------------------------------------------------------------------------------------------------------------------
